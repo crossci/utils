@@ -11,4 +11,6 @@ public:
 	static void GetCurrentDir(char* curDir);
 
 	static void generateFullPath(const char* fileName,char* pathName);
+
+	static FILE* openFile(const char* fileName, const char* mode);
 };

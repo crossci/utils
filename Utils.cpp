@@ -1,6 +1,8 @@
 #include "Utils.h"
 #include <Windows.h>
 #include <time.h>
+#include <direct.h>
+#include <io.h>
 
 bool Utils::splitFileName(const char* fileName, char* name, char* ext)
 {
@@ -35,7 +37,8 @@ void Utils::getTimeArray(std::vector<int>& vector)
 
 void Utils::GetCurrentDir(char* curDir)
 {
-	GetCurrentDirectoryA(MAX_PATH, curDir);
+	//GetCurrentDirectoryA(MAX_PATH, curDir);
+	_getcwd(curDir, MAX_PATH);
 }
 
 void Utils::generateFullPath(const char* fileName, char* pathName)
@@ -54,4 +57,29 @@ void Utils::generateFullPath(const char* fileName, char* pathName)
 		1900 + stime->tm_year, 1 + stime->tm_mon,
 		stime->tm_mday, stime->tm_hour,
 		stime->tm_min, stime->tm_sec, ext);
+}
+
+FILE* Utils::openFile(const char* fileName, const char* mode)
+{
+	FILE *pFile = fopen(fileName, mode);
+	if (!pFile)
+	{
+		char path[_MAX_PATH];
+		char temp[_MAX_PATH];
+		memset(path, 0, sizeof(path));
+		memset(temp, 0, sizeof(temp));
+		memcpy(path, fileName, strlen(fileName));
+		char* f_pos = strchr(path, '\\');
+		while (f_pos)
+		{
+			memcpy(temp, path, f_pos - path);
+			if (_access(temp, 0) == -1)
+			{
+				_mkdir(temp);
+			}
+			f_pos = strchr(f_pos + 1, '\\');
+		}
+		pFile = fopen(fileName, mode);
+	}
+	return pFile;
 }

@@ -1,13 +1,12 @@
 #include <iostream>
 #include "Utils.h"
+#include <io.h>
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-	const char* fileName = "test.txt";
-	char path[_MAX_PATH];
-	memset(path, 0, sizeof(path));
-	Utils::generateFullPath(fileName, path);
-	cout << path << endl;
+	const char* fileName = "C:\\Users\\zhukunkun\\Desktop\\test\\1\\2.txt";
+	FILE* file = Utils::openFile(fileName,"w");
+	fclose(file);
 	system("pause");
 }
