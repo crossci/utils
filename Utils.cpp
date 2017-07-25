@@ -83,3 +83,16 @@ FILE* Utils::openFile(const char* fileName, const char* mode)
 	}
 	return pFile;
 }
+
+int Utils::getFileLen(const char* fileName)
+{
+	int ret = 0;
+	FILE *pFile = fopen(fileName, "r");
+	if (pFile)
+	{
+		fseek(pFile, 0, SEEK_END);
+		ret = ftell(pFile);
+		fclose(pFile);
+	}
+	return ret;
+}
