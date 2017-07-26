@@ -3,7 +3,7 @@ template <class T>
 class CPtrHelper;
 
 template <class T1>
- class U_Ptr
+class  U_Ptr
 {
 	 friend class CPtrHelper<T1>;
 	T1* m_Ptr;

@@ -1,8 +1,8 @@
-
 #pragma once
+#include "define.h"
 #include <vector>
 #include "PtrHelper.h"
-class FileUtils
+class DLL_SAMPLE_API FileUtils
 {
 public:
 	static bool splitFileName(const char* fileName, char* name, char* ext);
@@ -24,5 +24,4 @@ public:
 	static CPtrHelper<char> getFile(const char* fileName, int& fileLen,const char* readType="rb");
 
 	static bool writeToFile(const char* fileName, const char* data, int dataLen, const char* writeType);
-
 };
