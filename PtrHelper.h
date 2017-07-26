@@ -1,10 +1,14 @@
 #pragma once
-template <class T> class U_Ptr
+template <class T>
+class CPtrHelper;
+
+template <class T1>
+ class U_Ptr
 {
-	friend class CPtrHelper;
-	T* m_Ptr;
+	 friend class CPtrHelper<T1>;
+	T1* m_Ptr;
 	int m_count;
-	U_Ptr(T* lp) :m_Ptr(lp), m_count(1)
+	U_Ptr(T1* lp) :m_Ptr(lp), m_count(1)
 	{
 	}
 	~U_Ptr()
@@ -14,7 +18,8 @@ template <class T> class U_Ptr
 	}
 };
 
-template <class T> class CPtrHelper
+template <class T>
+ class CPtrHelper
 {
 private:
 	// Pointer variable
@@ -28,13 +33,14 @@ public:
 
 	CPtrHelper(T* lp)
 	{
-		if (lp != nullptr)
+		m_Ptr = NULL;
+		if (lp != NULL)
  		{
 			m_Ptr = new U_Ptr<T>(lp);
  		}
 	}
 
-	CPtrHelper(const CPtrHelper& lp)
+	CPtrHelper(const CPtrHelper<T>& lp)
 	{
 		m_Ptr = lp.m_Ptr;
 		if (m_Ptr)
@@ -42,11 +48,10 @@ public:
 			addRef();
 		}
 	}
-
 	// Destructor
 	virtual ~CPtrHelper() 
 	{
-		if (m_Ptr != nullptr)
+		if (m_Ptr != NULL)
 		{
 			release();
 		}
@@ -61,31 +66,38 @@ public:
 		if (m_Ptr->m_count == 0)
 		{
 			delete m_Ptr;
-			m_Ptr = nullptr;
+			m_Ptr = NULL;
 		}
 	}
 	// Conversion
 public:
-	operator T*() { return m_Ptr ;}
+	operator T*()
+	{ 
+		if (m_Ptr)
+		{
+			return m_Ptr->m_Ptr;
+		}
+		return NULL;
+	}
 	//T* operator *() { return m_Ptr; }
 public:
 	// Pointer operations
 	//T& operator*()  { return *m_Ptr ;}
 	//T** operator&() { return &m_Ptr ;}
 	T* operator->() const
-	{ return m_Ptr; }
+	{ return m_Ptr->m_Ptr; }
 
 	// Assignment from the same interface
 	T* operator=(const CPtrHelper& pI)
 	{
 		if (m_Ptr != pI.m_Ptr)
 		{
-			if (m_Ptr != nullptr)
+			if (m_Ptr != NULL)
 			{
 				release()			// Release the old interface.
 			}
 			m_Ptr = pI.m_Ptr;
-			if (m_Ptr != nullptr)
+			if (m_Ptr != NULL)
 			{
 				addRef();
 			}
@@ -98,12 +110,12 @@ public:
 	{
 		if (m_Ptr != pI)
 		{
-			if (m_Ptr != nullptr)
+			if (m_Ptr != NULL)
 			{
 				release()			// Release the old interface.
 			}
 			m_Ptr = pI;
-			if (m_Ptr != nullptr)
+			if (m_Ptr != NULL)
 			{
 				addRef();
 			}
@@ -146,7 +158,7 @@ private:
  	//}
 
 public:
-	template <class T1>
+	/*template <class T1>
 	CPtrHelper<T1> cast()
 	{
 		CPtrHelper<T1> ptr;
@@ -155,5 +167,5 @@ public:
 			ptr = dynamic_cast<T1*>(m_Ptr);
 		}
 		return ptr;
-	}
+	}*/
 };

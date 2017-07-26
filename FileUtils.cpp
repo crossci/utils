@@ -96,3 +96,8 @@ int FileUtils::getFileLen(const char* fileName)
 	}
 	return ret;
 }
+
+CPtrHelper<char> FileUtils::getFile()
+{
+	return NULL;
+}
