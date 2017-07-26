@@ -15,7 +15,17 @@ int main(int argc, char* argv[])
 	memcpy(fieddle1, "test", strlen("test"));
 	CPtrHelper<char> fieddle2(fieddle1);
 
-
-
+	//¶ÁÐ´ÎÄ¼þ
+	int fileLen = 0;
+	CPtrHelper<char> fileContent = FileUtils::getTXTFile("E:\\test_space\\ConsoleApplication1\\Utils\\todolist.txt", fileLen);
+	if (fileContent)
+	{
+		cout << fileContent << endl;
+	}
+	
+	if (FileUtils::writeToFile("3.log", fileContent, fileLen, "w"))
+	{
+		cout << "write success!" << endl;
+	}
 	system("pause");
 }

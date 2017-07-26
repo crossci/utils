@@ -17,6 +17,12 @@ public:
 
 	static int getFileLen(const char* fileName);
 
-	static CPtrHelper<char> getFile();
+	static CPtrHelper<char> getBinFile(const char* fileName, int& fileLen);
+
+	static CPtrHelper<char> getTXTFile(const char* fileName, int& fileLen);
+
+	static CPtrHelper<char> getFile(const char* fileName, int& fileLen,const char* readType="rb");
+
+	static bool writeToFile(const char* fileName, const char* data, int dataLen, const char* writeType);
 
 };

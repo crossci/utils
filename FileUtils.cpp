@@ -87,7 +87,7 @@ FILE* FileUtils::openFile(const char* fileName, const char* mode)
 int FileUtils::getFileLen(const char* fileName)
 {
 	int ret = 0;
-	FILE *pFile = fopen(fileName, "r");
+	FILE *pFile = openFile(fileName, "r");
 	if (pFile)
 	{
 		fseek(pFile, 0, SEEK_END);
@@ -97,7 +97,43 @@ int FileUtils::getFileLen(const char* fileName)
 	return ret;
 }
 
-CPtrHelper<char> FileUtils::getFile()
+CPtrHelper<char> FileUtils::getBinFile(const char* fileName, int& fileLen)
 {
+	return getFile(fileName, fileLen);
+}
+
+CPtrHelper<char> FileUtils::getTXTFile(const char* fileName, int& fileLen)
+{
+	return getFile(fileName, fileLen,"r");
+}
+
+CPtrHelper<char> FileUtils::getFile(const char* fileName, int& fileLen, const char* readType)
+{
+	FILE *pFile = openFile(fileName, readType);
+	if (pFile)
+	{
+		fseek(pFile, 0, SEEK_END);
+		fileLen = ftell(pFile);
+		rewind(pFile);
+		char* ret = new char[fileLen];
+		if (ret)
+		{
+			fileLen = fread(ret, 1, fileLen, pFile);
+			return ret;
+		}
+		fclose(pFile);
+	}
 	return NULL;
+}
+bool FileUtils::writeToFile(const char* fileName, const char* data, int dataLen, const char* writeType)
+{
+	FILE *pFile = openFile(fileName, writeType);
+	if (pFile)
+	{
+		int writeCount = fwrite(data, 1, dataLen, pFile);
+		fclose(pFile);
+		if (writeCount == dataLen)
+			return true;
+	}
+	return false;
 }
