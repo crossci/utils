@@ -1,12 +1,6 @@
 
-#pragma once
-#include <vector>
-#include "PtrHelper.h"
-class Utils
-{
-public:
-
 	//todo
+
 	//md5
 	//crc
 	//一些常用的加密算法
@@ -19,4 +13,4 @@ public:
 	//智能指针
 	//内存池 对象池
 	//内存泄露
-};
+	//实现一个GUI（不规则界面）
