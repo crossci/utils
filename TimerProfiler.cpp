@@ -5,7 +5,6 @@
 
 TimeProfiler::TimeProfiler() :m_logFile(0)
 {
-	setLogFileName("timeprofile.profile");
 }
 
 TimeProfiler::~TimeProfiler()
@@ -59,8 +58,9 @@ void TimeProfiler::showResult()
 		memset(data, 0, sizeof(data));
 		int lastTime = (i>0) ? m_stopTimes[i - 1] : m_stopTimes[i];
 		//sprintf(data, "[%s]-%dms-lastTime=[%d]ms \r\n", "test", 16715916, 16715916);
-		sprintf(data, "[%s]-[%d]ms-lastTime=[%d]ms \r", m_stopNames[i].c_str(), m_stopTimes[i], (m_stopTimes[i] - lastTime));
+		sprintf(data, "[%s]-[%d]ms-lastTime=[%d]ms \n", m_stopNames[i].c_str(), m_stopTimes[i], (m_stopTimes[i] - lastTime));
 		fwrite(data, 1, strlen(data), m_logFile);
 	}
+	fflush(m_logFile);
 #endif
 }
