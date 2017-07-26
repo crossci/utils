@@ -1,8 +1,9 @@
 #pragma once
 #pragma comment( lib,"winmm.lib" )
 #include <vector>
+#include "define.h"
 using namespace std;
-class TimeProfiler
+class DLL_SAMPLE_API TimeProfiler
 {
 private:
 	vector<string> m_stopNames;

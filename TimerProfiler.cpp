@@ -1,9 +1,9 @@
 #include "TimeProfiler.h"
-#include "include\FileUtils.h"
+#include "FileUtils.h"
 #include <Windows.h>
 #include <time.h>
 
-TimeProfiler::TimeProfiler()
+TimeProfiler::TimeProfiler() :m_logFile(0)
 {
 	setLogFileName("timeprofile.profile");
 }
@@ -35,7 +35,6 @@ void TimeProfiler::setLogFileName(const char* fileName)
 	char fullPath[MAX_PATH];
 	FileUtils::generateFullPath(fileName, fullPath);
 	m_logFile = FileUtils::openFile(fullPath, "w");;
-	//fwrite("test", 1, strlen("test"), m_logFile);
 #endif
 }
 
@@ -45,6 +44,7 @@ void TimeProfiler::clear()
 	if (m_logFile)
 	{
 		fclose(m_logFile);
+		m_logFile = NULL;
 	}
 	reset();
 #endif
