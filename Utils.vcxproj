@@ -78,6 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="PtrHelper.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>

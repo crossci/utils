@@ -53,12 +53,12 @@ public:
 	}
 	void addRef()
 	{
-		m_count++;
+		m_Ptr->m_count++;
 	}
 	void release()
 	{
-		m_count--;
-		if (m_count == 0)
+		m_Ptr->m_count--;
+		if (m_Ptr->m_count == 0)
 		{
 			delete m_Ptr;
 			m_Ptr = nullptr;
@@ -80,15 +80,14 @@ public:
 	{
 		if (m_Ptr != pI.m_Ptr)
 		{
-			T* pOld = m_Ptr ;		// Save current value.
-			m_Ptr = pI.m_Ptr ;      // Assign new value.
-			if (pOld != nullptr)
+			if (m_Ptr != nullptr)
 			{
 				release()			// Release the old interface.
 			}
+			m_Ptr = pI.m_Ptr;
 			if (m_Ptr != nullptr)
 			{
-				m_Ptr->AddRef();
+				addRef();
 			}
 			
 		}
@@ -99,15 +98,14 @@ public:
 	{
 		if (m_Ptr != pI)
 		{
-			T* pOld = m_Ptr;    // Save current value.
-			m_Ptr = pI;                // Assign new value.
 			if (m_Ptr != nullptr)
 			{
-				m_Ptr->AddRef();
+				release()			// Release the old interface.
 			}
-			if (pOld != nullptr)
+			m_Ptr = pI;
+			if (m_Ptr != nullptr)
 			{
-				pOld->Release();       // Release the old interface.
+				addRef();
 			}
 		}
 		return m_Ptr;
