@@ -80,11 +80,13 @@
   <ItemGroup>
     <ClInclude Include="define.h" />
     <ClInclude Include="FileUtils.h" />
+    <ClInclude Include="MD5Utils.h" />
     <ClInclude Include="PtrHelper.h" />
     <ClInclude Include="TimeProfiler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileUtils.cpp" />
+    <ClCompile Include="MD5Utils.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="TimerProfiler.cpp" />
   </ItemGroup>
