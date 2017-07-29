@@ -83,11 +83,13 @@
     <ClInclude Include="fileutils\FileUtils.h" />
     <ClInclude Include="md5\md5.h" />
     <ClInclude Include="md5\MD5Utils.h" />
+    <ClInclude Include="stringutils\stringutils.h" />
     <ClInclude Include="timeprofiler\TimeProfiler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fileutils\FileUtils.cpp" />
     <ClCompile Include="md5\MD5Utils.cpp" />
+    <ClCompile Include="stringutils\stringutils.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="timeprofiler\TimerProfiler.cpp" />
   </ItemGroup>
