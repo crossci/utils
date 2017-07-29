@@ -1,7 +1,7 @@
 #pragma once
-#include "define.h"
+#include "..\base\define.h"
 #include <vector>
-#include "PtrHelper.h"
+#include "..\base\PtrHelper.h"
 class DLL_SAMPLE_API FileUtils
 {
 public:
