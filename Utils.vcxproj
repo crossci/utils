@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -14,20 +14,21 @@
     <ProjectGuid>{8152AC7D-CB4E-4BD9-9A2D-40B86BD47443}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Utils</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -85,6 +86,7 @@
     <ClInclude Include="md5\MD5Utils.h" />
     <ClInclude Include="stringutils\stringutils.h" />
     <ClInclude Include="timeprofiler\TimeProfiler.h" />
+    <ClInclude Include="utils\utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fileutils\FileUtils.cpp" />
@@ -92,6 +94,7 @@
     <ClCompile Include="stringutils\stringutils.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="timeprofiler\TimerProfiler.cpp" />
+    <ClCompile Include="utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="todolist.txt" />

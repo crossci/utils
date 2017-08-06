@@ -3,6 +3,7 @@
 #include <io.h>
 #include <Windows.h>
 #include "md5\MD5Utils.h"
+#include "utils\utils.h"
 #include <algorithm>
 using namespace std;
 #ifdef _DEBUG
@@ -31,10 +32,12 @@ int main(int argc, char* argv[])
 	//{
 	//	cout << "write success!" << endl;
 	//}
-	string md5str = MD5Utils::getFileMD5("E:\\test_space\\ConsoleApplication1\\Utils\\test.cpp");
+	/*string md5str = MD5Utils::getFileMD5("E:\\test_space\\ConsoleApplication1\\Utils\\test.cpp");
 	cout << md5str<< endl;
 	transform(md5str.begin(), md5str.end(), md5str.begin(), toupper);
-	cout << md5str << endl;
+	cout << md5str << endl;*/
+	const char* cmd = "test.bat";
+	utils::runBat(cmd, false,false);
 	system("pause");
 }
 

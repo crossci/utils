@@ -24,6 +24,9 @@
     <Filter Include="源文件\stringutils">
       <UniqueIdentifier>{1b229fe9-0850-4f57-95ed-202754fde74e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\utils">
+      <UniqueIdentifier>{1f394bef-f317-40e7-ab11-472b6c8fb54a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="md5\md5.h">
@@ -47,6 +50,9 @@
     <ClInclude Include="stringutils\stringutils.h">
       <Filter>源文件\stringutils</Filter>
     </ClInclude>
+    <ClInclude Include="utils\utils.h">
+      <Filter>源文件\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">
@@ -63,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="stringutils\stringutils.cpp">
       <Filter>源文件\stringutils</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\utils.cpp">
+      <Filter>源文件\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
