@@ -1,6 +1,7 @@
 #pragma once
 #include "..\base\define.h"
 #include <vector>
+#include <string>
 #include "..\base\PtrHelper.h"
 class DLL_SAMPLE_API FileUtils
 {
@@ -24,4 +25,6 @@ public:
 	static CPtrHelper<char> getFile(const char* fileName, int& fileLen,const char* readType="rb");
 
 	static bool writeToFile(const char* fileName, const char* data, int dataLen, const char* writeType);
+
+	static void listFiles(const char * dir, std::vector<std::string>& files);
 };
