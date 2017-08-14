@@ -138,3 +138,34 @@ bool FileUtils::writeToFile(const char* fileName, const char* data, int dataLen,
 	return false;
 }
 
+void FileUtils::listFiles(const char * dir, std::vector<std::string>& files)
+{
+	char dirNew[200];
+	strcpy(dirNew, dir);
+	strcat(dirNew, "\\*.*");    // 在目录后面加上"\\*.*"进行第一次搜索
+
+	intptr_t handle;
+	_finddata_t findData;
+
+	handle = _findfirst(dirNew, &findData);
+	if (handle == -1)        // 检查是否成功
+		return;
+
+	do
+	{
+		strcpy(dirNew, dir);
+		strcat(dirNew, "\\");
+		strcat(dirNew, findData.name);
+		if (findData.attrib & _A_SUBDIR)
+		{
+			if (strcmp(findData.name, ".") == 0 || strcmp(findData.name, "..") == 0)
+				continue;
+
+			listFiles(dirNew, files);
+		}
+		else
+			files.push_back(dirNew);
+	} while (_findnext(handle, &findData) == 0);
+
+	_findclose(handle);    // 关闭搜索句柄
+}
