@@ -1,5 +1,6 @@
 #include <iostream>
 #include "fileutils\FileUtils.h"
+#include "stringutils\stringutils.h"
 #include <io.h>
 #include <Windows.h>
 #include "md5\MD5Utils.h"
@@ -36,8 +37,16 @@ int main(int argc, char* argv[])
 	cout << md5str<< endl;
 	transform(md5str.begin(), md5str.end(), md5str.begin(), toupper);
 	cout << md5str << endl;*/
-	const char* cmd = "test.bat";
-	utils::runBat(cmd, false,false);
+	/*const char* cmd = "test.bat";
+	utils::runBat(cmd, false,false);*/
+
+	char* str = "1,3,4,5,6";
+	std::vector<string> vs = stringutils::split(str, ",");
+	std::vector<string>::iterator it = vs.begin();
+	for (; it != vs.end(); it++)
+	{
+		cout << it->c_str() << endl;
+	}
 	system("pause");
 }
 

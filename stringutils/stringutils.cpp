@@ -1,5 +1,6 @@
 #include "stringutils.h"
 #include <algorithm>
+
 void stringutils::converToUpper(std::string& src)
 {
 	transform(src.begin(), src.end(), src.begin(), toupper);
@@ -39,5 +40,24 @@ std::wstring stringutils::s2ws(const std::string& s)
 	std::wstring result = _Dest;
 	delete[] _Dest;
 	setlocale(LC_ALL, curlLocale.c_str());
+	return result;
+}
+std::vector<std::string> stringutils::split(std::string str, std::string pattern)
+{
+	std::string::size_type pos;
+	std::vector<std::string> result;
+	str += pattern;
+	int size = str.size();
+
+	for (int i = 0; i<size; i++)
+	{
+		pos = str.find(pattern, i);
+		if (pos<size)
+		{
+			std::string s = str.substr(i, pos - i);
+			result.push_back(s);
+			i = pos + pattern.size() - 1;
+		}
+	}
 	return result;
 }
