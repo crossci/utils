@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utils", "Utils.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinHttpClient", "..\WinHttpClient\WinHttpClient.vcxproj", "{BCF5992B-0824-4C6B-B7BB-1D5965B3B3F8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xmldemo", "..\xmldemo\xmldemo.vcxproj", "{97D3AA66-829F-44A6-91B0-FCB442B4B99B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
