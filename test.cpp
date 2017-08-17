@@ -9,6 +9,11 @@
 using namespace std;
 #ifdef _DEBUG
 
+union dataUnion {
+	float f;
+	unsigned char fBuff[sizeof(float)];
+};
+
 int main(int argc, char* argv[])
 {
 	//const char* fileName = "C:\\Users\\zhukunkun\\Desktop\\test\\1\\2.txt";
@@ -40,13 +45,29 @@ int main(int argc, char* argv[])
 	/*const char* cmd = "test.bat";
 	utils::runBat(cmd, false,false);*/
 
-	char* str = "1,3,4,5,6";
+	/*char* str = "1,3,4,5,6";
 	std::vector<string> vs = stringutils::split(str, ",");
 	std::vector<string>::iterator it = vs.begin();
 	for (; it != vs.end(); it++)
 	{
 		cout << it->c_str() << endl;
-	}
+	}*/
+	char data[] = { "3F8147AE" };
+	cout << atof(data) << endl;
+	char data1[] = { "AE47813F" };
+	cout << atof(data1) << endl;
+
+	
+	// to use:  
+	dataUnion myUnion;
+	//  
+	myUnion.f = 1.01f;
+	myUnion.fBuff[0] = '174';
+	myUnion.fBuff[1] = '71';
+	myUnion.fBuff[2] = '129';
+	myUnion.fBuff[3] = '63';
+	cout << myUnion.f << endl;
+
 	system("pause");
 }
 

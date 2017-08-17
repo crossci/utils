@@ -13,5 +13,7 @@ public:
 
 	static std::wstring s2ws(const std::string& s);
 
+	static std::string utf2gbk(const char* utf);
+
 	static std::vector<std::string> split(std::string str, std::string pattern);
 };

@@ -1,6 +1,6 @@
 #include "stringutils.h"
 #include <algorithm>
-
+#include <Stringapiset.h >
 void stringutils::converToUpper(std::string& src)
 {
 	transform(src.begin(), src.end(), src.begin(), toupper);
@@ -41,6 +41,19 @@ std::wstring stringutils::s2ws(const std::string& s)
 	delete[] _Dest;
 	setlocale(LC_ALL, curlLocale.c_str());
 	return result;
+}
+
+std::string stringutils::utf2gbk(const char* utf)
+{
+	int i = MultiByteToWideChar(CP_UTF8, 0, utf, -1, NULL, 0);
+	WCHAR   *strUnicode = new   WCHAR[i];
+	MultiByteToWideChar(CP_UTF8, 0, utf, -1, strUnicode, i);
+	i = WideCharToMultiByte(CP_ACP, 0, strUnicode, -1, NULL, 0, NULL, NULL);
+	char   *strGBK = new   char[i];
+	WideCharToMultiByte(CP_ACP, 0, strUnicode, -1, strGBK, i, NULL, NULL);
+	std::string	ret = strGBK;
+	delete[] strGBK;
+	return ret;
 }
 std::vector<std::string> stringutils::split(std::string str, std::string pattern)
 {
