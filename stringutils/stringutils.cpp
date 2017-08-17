@@ -1,6 +1,6 @@
 #include "stringutils.h"
 #include <algorithm>
-#include <Stringapiset.h >
+#include <Windows.h>
 void stringutils::converToUpper(std::string& src)
 {
 	transform(src.begin(), src.end(), src.begin(), toupper);
@@ -43,7 +43,7 @@ std::wstring stringutils::s2ws(const std::string& s)
 	return result;
 }
 
-std::string stringutils::utf2gbk(const char* utf)
+std::string stringutils::utf82gbk(const char* utf)
 {
 	int i = MultiByteToWideChar(CP_UTF8, 0, utf, -1, NULL, 0);
 	WCHAR   *strUnicode = new   WCHAR[i];
@@ -55,6 +55,21 @@ std::string stringutils::utf2gbk(const char* utf)
 	delete[] strGBK;
 	return ret;
 }
+std::string stringutils::gbk2utf8(const char* gbk)
+{
+	int i = MultiByteToWideChar(CP_ACP, 0, gbk, -1, NULL, 0);
+	WCHAR   *strGBK = new   WCHAR[i];
+	wmemset(strGBK, 0, i);
+	MultiByteToWideChar(CP_ACP, 0, gbk, -1, strGBK, i);
+	i = WideCharToMultiByte(CP_UTF8, 0, strGBK, -1, NULL, 0, NULL, NULL);
+	char   *strUTF8 = new   char[i];
+	memset(strUTF8, 0, i);
+	WideCharToMultiByte(CP_UTF8, 0, strGBK, -1, strUTF8, i, NULL, NULL);
+	std::string	ret = strUTF8;
+	delete[] strUTF8;
+	return ret;
+}
+
 std::vector<std::string> stringutils::split(std::string str, std::string pattern)
 {
 	std::string::size_type pos;

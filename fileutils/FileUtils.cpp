@@ -115,7 +115,8 @@ CPtrHelper<char> FileUtils::getFile(const char* fileName, int& fileLen, const ch
 		fseek(pFile, 0, SEEK_END);
 		fileLen = ftell(pFile);
 		rewind(pFile);
-		char* ret = new char[fileLen];
+		char* ret = new char[fileLen+1];
+		memset(ret, 0, fileLen + 1);
 		if (ret)
 		{
 			fileLen = fread(ret, 1, fileLen, pFile);
