@@ -89,3 +89,10 @@ std::vector<std::string> stringutils::split(std::string str, std::string pattern
 	}
 	return result;
 }
+
+std::string stringutils::number2string(long long value)
+{
+	char temp[48] = { 0 };
+	_i64toa_s(value, temp, 48, 10);
+	return temp;
+}

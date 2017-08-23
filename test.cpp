@@ -9,10 +9,18 @@
 using namespace std;
 #ifdef _DEBUG
 
-union dataUnion {
-	float f;
-	unsigned char fBuff[sizeof(float)];
+template <class T>
+union TypeUnion {
+	T s;
+	char sBuff[sizeof(T)];
 };
+
+struct stu{
+	char sex;
+	int length;
+	char name[10];
+};
+
 
 int main(int argc, char* argv[])
 {
@@ -52,22 +60,18 @@ int main(int argc, char* argv[])
 	{
 		cout << it->c_str() << endl;
 	}*/
-	char data[] = { "3F8147AE" };
-	cout << atof(data) << endl;
-	char data1[] = { "AE47813F" };
-	cout << atof(data1) << endl;
 
-	
-	// to use:  
-	dataUnion myUnion;
-	//  
-	myUnion.f = 1.01f;
-	myUnion.fBuff[0] = '174';
-	myUnion.fBuff[1] = '71';
-	myUnion.fBuff[2] = '129';
-	myUnion.fBuff[3] = '63';
-	cout << myUnion.f << endl;
+	TypeUnion<long long> myUnion;
+	myUnion.s = 10000;
+	cout << myUnion.sBuff << endl;
 
+	cout << MD5Utils::getMD5("123456") << endl;
+
+	long long longlongvalue = 123433255;
+	cout << stringutils::number2string(longlongvalue).c_str() << endl;
+
+	stu mystu;
+	cout << sizeof(mystu) << endl;
 	system("pause");
 }
 
