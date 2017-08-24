@@ -20,4 +20,6 @@ public:
 	static std::vector<std::string> split(std::string str, std::string pattern);
 
 	static std::string number2string(long long value);
+
+	bool isChineseCharacter(std::string str);
 };

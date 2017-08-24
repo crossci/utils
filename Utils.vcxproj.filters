@@ -53,6 +53,9 @@
     <ClInclude Include="utils\utils.h">
       <Filter>源文件\utils</Filter>
     </ClInclude>
+    <ClInclude Include="utils\CircularBuffer.h">
+      <Filter>源文件\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">

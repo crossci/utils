@@ -96,3 +96,16 @@ std::string stringutils::number2string(long long value)
 	_i64toa_s(value, temp, 48, 10);
 	return temp;
 }
+bool stringutils::isChineseCharacter(std::string str)
+{
+	char c = str.c_str()[0];
+	if (c & 0x80)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+}

@@ -86,6 +86,7 @@
     <ClInclude Include="md5\MD5Utils.h" />
     <ClInclude Include="stringutils\stringutils.h" />
     <ClInclude Include="timeprofiler\TimeProfiler.h" />
+    <ClInclude Include="utils\CircularBuffer.h" />
     <ClInclude Include="utils\utils.h" />
   </ItemGroup>
   <ItemGroup>
