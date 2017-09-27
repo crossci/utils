@@ -6,22 +6,58 @@
 #include "md5\MD5Utils.h"
 #include "utils\utils.h"
 #include <algorithm>
+#include <unordered_map>
+
 using namespace std;
 #ifdef _DEBUG
-
-template <class T>
-union TypeUnion {
-	T s;
-	char sBuff[sizeof(T)];
-};
-
 struct stu{
 	char sex;
 	int length;
 	char name[10];
 };
 
+int getLongLongSize(long long n)
+{
+	char temp[100] = { 0 };
+	_i64toa_s(n, temp, 100, 10);
+	return strlen(temp);
+}
+class A
+{
+public:
+	virtual ~A()
+	{
+		cout << "~A()" << endl;
+	}
+	operator bool() const
+	{
+		int a = 0;
+		return false;
+	}
 
+	bool operator==(const A& pI)
+	{
+		int a = 0;
+		return true;
+	}
+};
+class B 
+{
+public:
+	A a;
+	virtual ~B()
+	{
+		cout << "~B()" << endl;
+	}
+	bool operator==(const B& pI)
+	{
+		if (a == pI.a)
+		{
+			int a = 0;
+		}
+		return true;
+	}
+};
 int main(int argc, char* argv[])
 {
 	//const char* fileName = "C:\\Users\\zhukunkun\\Desktop\\test\\1\\2.txt";
@@ -61,7 +97,7 @@ int main(int argc, char* argv[])
 		cout << it->c_str() << endl;
 	}*/
 
-	TypeUnion<long long> myUnion;
+	/*TypeUnion<long long> myUnion;
 	myUnion.s = 10000;
 	cout << myUnion.sBuff << endl;
 
@@ -72,6 +108,40 @@ int main(int argc, char* argv[])
 
 	stu mystu;
 	cout << sizeof(mystu) << endl;
+
+
+	std::unordered_map<int, int> numbers;
+	std::unordered_map<int, int>::iterator it;
+	for (int i = 0; i < 10; i++)
+	{
+		numbers.insert(make_pair(5, i));
+	}
+	
+	it = numbers.lower_bound(5);
+	if ((it == numbers.end()) || (it->first != 5))
+	{
+		cout << it->first << endl;
+	}
+	B* a = new B();
+	a->~B();*/
+	/*string str;
+	char* temp = "string str";
+	str.append(temp, strlen(temp));
+	cout << str.c_str() << endl;*/
+	B a1;
+	B a2;
+	if ((1 == 1) && (a1 == a2))
+	{
+		cout << "" << endl;
+	}
+	char ip[30] = { 0 };
+	while (1)
+	{
+		cout << utils::get_cpu_useage() << endl;
+		cout << utils::get_memory_useage() << endl;
+		cout << utils::get_ip(ip) << endl;
+		Sleep(1000);
+	}
 	system("pause");
 }
 
