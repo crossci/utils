@@ -27,4 +27,6 @@ public:
 	static bool writeToFile(const char* fileName, const char* data, int dataLen, const char* writeType);
 
 	static void listFiles(const char * dir, std::vector<std::string>& files);
+
+	static bool is_exist(const char* fileName);
 };

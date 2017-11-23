@@ -170,3 +170,9 @@ void FileUtils::listFiles(const char * dir, std::vector<std::string>& files)
 
 	_findclose(handle);    // ¹Ø±ÕËÑË÷¾ä±ú
 }
+bool FileUtils::is_exist(const char* fileName)
+{
+	if (_access(fileName, 0) == 0)
+		return true;
+	return false;
+}

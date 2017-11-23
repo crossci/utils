@@ -27,6 +27,9 @@
     <Filter Include="源文件\utils">
       <UniqueIdentifier>{1f394bef-f317-40e7-ab11-472b6c8fb54a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\minidump">
+      <UniqueIdentifier>{b9780b1f-ef82-48d8-9f90-5cb402e47a7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="md5\md5.h">
@@ -52,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="utils\utils.h">
       <Filter>源文件\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="minidump\minidump.h">
+      <Filter>源文件\minidump</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

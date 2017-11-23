@@ -84,6 +84,7 @@
     <ClInclude Include="fileutils\FileUtils.h" />
     <ClInclude Include="md5\md5.h" />
     <ClInclude Include="md5\MD5Utils.h" />
+    <ClInclude Include="minidump\minidump.h" />
     <ClInclude Include="stringutils\stringutils.h" />
     <ClInclude Include="timeprofiler\TimeProfiler.h" />
     <ClInclude Include="utils\utils.h" />

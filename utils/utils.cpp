@@ -79,7 +79,9 @@ int utils::get_memory_useage()
 	return statex.dwMemoryLoad;
 }
 
-bool utils::get_ip(char* ip)
+
+
+bool utils::get_ip(std::vector<std::string>& ips)
 {
 	//1.初始化wsa  
 	WSADATA wsaData;
@@ -101,7 +103,12 @@ bool utils::get_ip(char* ip)
 	{
 		return false;
 	}
-	//4.转化为char*并拷贝返回  
-	strcpy(ip, inet_ntoa(*(in_addr*)*host->h_addr_list));
+	//4.逐个转化为char*并拷贝返回  
+	int ip_count = host->h_length;
+	for (int i = 0; i < ip_count; i++)
+	{
+		in_addr* addr = (in_addr*)*host->h_addr_list;
+		ips.push_back(inet_ntoa(addr[i]));
+	}
 	return true;
 }

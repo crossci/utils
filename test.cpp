@@ -7,7 +7,9 @@
 #include "utils\utils.h"
 #include <algorithm>
 #include <unordered_map>
-
+#include <time.h>
+#include <map>
+#include "minidump\minidump.h"
 using namespace std;
 #ifdef _DEBUG
 struct stu{
@@ -57,9 +59,25 @@ public:
 		}
 		return true;
 	}
+	void test()
+	{
+		delete this;
+	}
+};
+
+union Game_State_Union
+{
+	int value;
+	struct
+	{
+		int game_state : 16;
+		int all_time : 8;
+		int left_time : 8;
+	};
 };
 int main(int argc, char* argv[])
 {
+
 	//const char* fileName = "C:\\Users\\zhukunkun\\Desktop\\test\\1\\2.txt";
 	//FILE* file = FileUtils::openFile(fileName, "w");
 	//fclose(file);
@@ -94,7 +112,7 @@ int main(int argc, char* argv[])
 	std::vector<string>::iterator it = vs.begin();
 	for (; it != vs.end(); it++)
 	{
-		cout << it->c_str() << endl;
+	cout << it->c_str() << endl;
 	}*/
 
 	/*TypeUnion<long long> myUnion;
@@ -114,13 +132,13 @@ int main(int argc, char* argv[])
 	std::unordered_map<int, int>::iterator it;
 	for (int i = 0; i < 10; i++)
 	{
-		numbers.insert(make_pair(5, i));
+	numbers.insert(make_pair(5, i));
 	}
-	
+
 	it = numbers.lower_bound(5);
 	if ((it == numbers.end()) || (it->first != 5))
 	{
-		cout << it->first << endl;
+	cout << it->first << endl;
 	}
 	B* a = new B();
 	a->~B();*/
@@ -128,23 +146,105 @@ int main(int argc, char* argv[])
 	char* temp = "string str";
 	str.append(temp, strlen(temp));
 	cout << str.c_str() << endl;*/
-	B a1;
-	B a2;
-	if ((1 == 1) && (a1 == a2))
+	//B a1;
+	//B a2;
+	//if ((1 == 1) && (a1 == a2))
+	//{
+	//	cout << "" << endl;
+	//}
+	//char ip[30] = { 0 };
+	//vector<std::string> ips;
+	//while (1)
+	//{
+	//	ips.clear();
+	//	cout << utils::get_cpu_useage() << endl;
+	//	cout << utils::get_memory_useage() << endl;
+	//	utils::get_ip(ips);
+	//	int size = ips.size();
+	//	for (int i = 0; i < size; i++)
+	//	{
+	//		cout << ips[i].c_str() << endl;
+	//	}
+	//	Sleep(1000);
+	//}
+	/*char curDir[MAX_PATH];
+	char batPath[MAX_PATH];
+	FileUtils::GetCurrentDir(curDir);
+	sprintf(batPath, "%s/%s", curDir, "startserver.bat");
+	if (FileUtils::is_exist(batPath))
 	{
-		cout << "" << endl;
+		utils::runBat(batPath, false, false);
 	}
-	char ip[30] = { 0 };
-	while (1)
+	else
 	{
-		cout << utils::get_cpu_useage() << endl;
-		cout << utils::get_memory_useage() << endl;
-		cout << utils::get_ip(ip) << endl;
-		Sleep(1000);
-	}
-	system("pause");
+		cout << batPath << " is not exist!" << endl;
+		system("pause");
+	}*/
+//char item[96] = { 0 };
+//int first_count = 10;
+//int data[10] = { 0 };
+//for (int i = 0; i < first_count; i++)
+//{
+//	data[i] = i+10;
+//}
+//int write_pos = 0;
+//for (int i = 0; i < first_count; i++)
+//{
+//	write_pos += sprintf_s(item + write_pos, 96 - write_pos, "%d,", data[i]);
+//}
+//item[write_pos - 1] = 0;
+//cout << item << endl;
+/*int size = 1024 ;
+for (int i = 0; i < 20*1024; i++)
+{
+	char temp[1024];
+	memset(temp, 'a', size);
+	FileUtils::writeToFile("temp.txt", temp, size, "a+");
+}*/
+//srand((unsigned int)time(0));
+//while (1)
+//{
+//
+//	int password = (rand() << 16 | rand()) % 900000 + 100000;
+//	cout << password << endl;
+//}
+//map<int, int> m;
+//for (int i = 0; i < 10; i++)
+//{
+//	auto it = m.find(1);
+//	if (it != m.end())
+//	{
+//		m.erase(it);
+//	}
+//	m.insert(make_pair(1,i));
+//	
+//}
+//while (true)
+//{
+//	int left_time = time(0);
+//	cout << (left_time & 0x7f) << endl;
+//	cout << left_time << endl;
+//}
+SetUnhandledExceptionFilter(ExceptionFilter);
+char szapipath[MAX_PATH];//（D:\Documents\Downloads\TEST.exe）
+memset(szapipath, 0, MAX_PATH);
+GetModuleFileNameA(NULL, szapipath, MAX_PATH);
+
+//获取应用程序名称
+char szExe[MAX_PATH] = "";//（TEST.exe）
+char *pbuf = NULL;
+char* szLine = strtok_s(szapipath,"\\",&pbuf);
+while (NULL != szLine)
+{
+	strcpy_s(szExe, szLine);
+	szLine = strtok_s(NULL,"\\",&pbuf);
 }
 
+//删除.exe
+strncpy_s(szapipath, szExe, strlen(szExe)-4);
+cout<<szapipath<<endl;//(TEST)
+system("pause");
+}
 #else
 BOOL APIENTRY DllMain(HMODULE hModule,
 	DWORD  ul_reason_for_call,
