@@ -1,5 +1,6 @@
 #include "TimeProfiler.h"
 #include "..\fileutils\FileUtils.h"
+#include <winsock2.h>
 #include <Windows.h>
 #include <time.h>
 

@@ -2,6 +2,7 @@
 #include "fileutils\FileUtils.h"
 #include "stringutils\stringutils.h"
 #include <io.h>
+#include <winsock2.h>
 #include <Windows.h>
 #include "md5\MD5Utils.h"
 #include "utils\utils.h"
@@ -10,239 +11,136 @@
 #include <time.h>
 #include <map>
 #include "minidump\minidump.h"
+#include<fstream>
+#include "mail\CSmtp.h"
 using namespace std;
 #ifdef _DEBUG
-struct stu{
-	char sex;
-	int length;
-	char name[10];
-};
 
-int getLongLongSize(long long n)
+time_t StringToDatetime(char *str)
 {
-	char temp[100] = { 0 };
-	_i64toa_s(n, temp, 100, 10);
-	return strlen(temp);
+	tm tm_;
+	int year, month, day, hour, minute, second;
+	sscanf(str, "%d-%d-%d %d:%d:%d", &year, &month, &day, &hour, &minute, &second);
+	tm_.tm_year = year - 1900;
+	tm_.tm_mon = month - 1;
+	tm_.tm_mday = day;
+	tm_.tm_hour = hour;
+	tm_.tm_min = minute;
+	tm_.tm_sec = second;
+	tm_.tm_isdst = 0;
+
+	time_t t_ = mktime(&tm_); //已经减了8个时区
+	return t_; //秒时间
 }
-class A
+int get_money_by_level(int vip_level)
 {
-public:
-	virtual ~A()
+	int v = 5 * vip_level*vip_level*vip_level;
+	std::string s = std::to_string(v);
+	int len = s.length() - 2;
+	int m = 1;
+	for (int i = 0; i < len; i++)
 	{
-		cout << "~A()" << endl;
+		m *= 10;
 	}
-	operator bool() const
-	{
-		int a = 0;
-		return false;
-	}
+	return v / m*m;
 
-	bool operator==(const A& pI)
-	{
-		int a = 0;
-		return true;
-	}
-};
-class B 
+}
+int get_vip_level(int money)
 {
-public:
-	A a;
-	virtual ~B()
+	int vip_level = 0;
+	if (money < 100)
 	{
-		cout << "~B()" << endl;
+		vip_level = 0;
 	}
-	bool operator==(const B& pI)
+	else if (money < 200)
 	{
-		if (a == pI.a)
-		{
-			int a = 0;
-		}
-		return true;
+		vip_level = 1;
 	}
-	void test()
+	else if (money < 400)
 	{
-		delete this;
+		vip_level = 2;
 	}
-};
-
-union Game_State_Union
-{
-	int value;
-	struct
+	else if (money < 500)
 	{
-		int game_state : 16;
-		int all_time : 8;
-		int left_time : 8;
-	};
-};
-int main(int argc, char* argv[])
-{
-
-	//const char* fileName = "C:\\Users\\zhukunkun\\Desktop\\test\\1\\2.txt";
-	//FILE* file = FileUtils::openFile(fileName, "w");
-	//fclose(file);
-
-	//智能指针（智能操作堆上的对象）
-	//CPtrHelper<char> fieddle1 = new char[10];
-	//memset(fieddle1, 0, 10);
-	//memcpy(fieddle1, "test", strlen("test"));
-	//CPtrHelper<char> fieddle2(fieddle1);
-
-	////读写文件
-	//int fileLen = 0;
-	//CPtrHelper<char> fileContent = FileUtils::getTXTFile("E:\\test_space\\ConsoleApplication1\\Utils\\todolist.txt", fileLen);
-	//if (fileContent)
-	//{
-	//	cout << fileContent << endl;
-	//}
-	//
-	//if (FileUtils::writeToFile("3.log", fileContent, fileLen, "w"))
-	//{
-	//	cout << "write success!" << endl;
-	//}
-	/*string md5str = MD5Utils::getFileMD5("E:\\test_space\\ConsoleApplication1\\Utils\\test.cpp");
-	cout << md5str<< endl;
-	transform(md5str.begin(), md5str.end(), md5str.begin(), toupper);
-	cout << md5str << endl;*/
-	/*const char* cmd = "test.bat";
-	utils::runBat(cmd, false,false);*/
-
-	/*char* str = "1,3,4,5,6";
-	std::vector<string> vs = stringutils::split(str, ",");
-	std::vector<string>::iterator it = vs.begin();
-	for (; it != vs.end(); it++)
-	{
-	cout << it->c_str() << endl;
-	}*/
-
-	/*TypeUnion<long long> myUnion;
-	myUnion.s = 10000;
-	cout << myUnion.sBuff << endl;
-
-	cout << MD5Utils::getMD5("123456") << endl;
-
-	long long longlongvalue = 123433255;
-	cout << stringutils::number2string(longlongvalue).c_str() << endl;
-
-	stu mystu;
-	cout << sizeof(mystu) << endl;
-
-
-	std::unordered_map<int, int> numbers;
-	std::unordered_map<int, int>::iterator it;
-	for (int i = 0; i < 10; i++)
-	{
-	numbers.insert(make_pair(5, i));
+		vip_level = 3;
 	}
-
-	it = numbers.lower_bound(5);
-	if ((it == numbers.end()) || (it->first != 5))
+	else if (money < 625)
 	{
-	cout << it->first << endl;
-	}
-	B* a = new B();
-	a->~B();*/
-	/*string str;
-	char* temp = "string str";
-	str.append(temp, strlen(temp));
-	cout << str.c_str() << endl;*/
-	//B a1;
-	//B a2;
-	//if ((1 == 1) && (a1 == a2))
-	//{
-	//	cout << "" << endl;
-	//}
-	//char ip[30] = { 0 };
-	//vector<std::string> ips;
-	//while (1)
-	//{
-	//	ips.clear();
-	//	cout << utils::get_cpu_useage() << endl;
-	//	cout << utils::get_memory_useage() << endl;
-	//	utils::get_ip(ips);
-	//	int size = ips.size();
-	//	for (int i = 0; i < size; i++)
-	//	{
-	//		cout << ips[i].c_str() << endl;
-	//	}
-	//	Sleep(1000);
-	//}
-	/*char curDir[MAX_PATH];
-	char batPath[MAX_PATH];
-	FileUtils::GetCurrentDir(curDir);
-	sprintf(batPath, "%s/%s", curDir, "startserver.bat");
-	if (FileUtils::is_exist(batPath))
-	{
-		utils::runBat(batPath, false, false);
+		vip_level = 4;
 	}
 	else
 	{
-		cout << batPath << " is not exist!" << endl;
-		system("pause");
-	}*/
-//char item[96] = { 0 };
-//int first_count = 10;
-//int data[10] = { 0 };
-//for (int i = 0; i < first_count; i++)
-//{
-//	data[i] = i+10;
-//}
-//int write_pos = 0;
-//for (int i = 0; i < first_count; i++)
-//{
-//	write_pos += sprintf_s(item + write_pos, 96 - write_pos, "%d,", data[i]);
-//}
-//item[write_pos - 1] = 0;
-//cout << item << endl;
-/*int size = 1024 ;
-for (int i = 0; i < 20*1024; i++)
-{
-	char temp[1024];
-	memset(temp, 'a', size);
-	FileUtils::writeToFile("temp.txt", temp, size, "a+");
-}*/
-//srand((unsigned int)time(0));
-//while (1)
-//{
-//
-//	int password = (rand() << 16 | rand()) % 900000 + 100000;
-//	cout << password << endl;
-//}
-//map<int, int> m;
-//for (int i = 0; i < 10; i++)
-//{
-//	auto it = m.find(1);
-//	if (it != m.end())
-//	{
-//		m.erase(it);
-//	}
-//	m.insert(make_pair(1,i));
-//	
-//}
-//while (true)
-//{
-//	int left_time = time(0);
-//	cout << (left_time & 0x7f) << endl;
-//	cout << left_time << endl;
-//}
-SetUnhandledExceptionFilter(ExceptionFilter);
-char szapipath[MAX_PATH];//（D:\Documents\Downloads\TEST.exe）
-memset(szapipath, 0, MAX_PATH);
-GetModuleFileNameA(NULL, szapipath, MAX_PATH);
-
-//获取应用程序名称
-char szExe[MAX_PATH] = "";//（TEST.exe）
-char *pbuf = NULL;
-char* szLine = strtok_s(szapipath,"\\",&pbuf);
-while (NULL != szLine)
-{
-	strcpy_s(szExe, szLine);
-	szLine = strtok_s(NULL,"\\",&pbuf);
+		vip_level = 5;
+		int v = get_money_by_level(vip_level);
+		while (money > v)
+		{
+			++vip_level;
+			v = get_money_by_level(vip_level);
+		}
+	}
+	return vip_level;
 }
+typedef union _CARD_TYPE
+{
+	struct
+	{
+		int type;
+		int value;
+	};
+	struct
+	{
+		char duizi : 1;
+		char shunzi : 1;
+		char tonghua : 1;
+		char sanzhang : 1;
+	};
+}*PCARD_TYPE;
 
-//删除.exe
-strncpy_s(szapipath, szExe, strlen(szExe)-4);
-cout<<szapipath<<endl;//(TEST)
+int main(int argc, char* argv[])
+{
+	//CSmtp sMailer;
+	////    freopen("F://mailfile//out.txt","w+",stdout);
+
+	//sMailer.SetSMTPServer("smtp.163.com", 25);
+	//sMailer.SetSecurityType(USE_TLS);//USE_TLS);  
+	//sMailer.SetLogin("crash10888888@163.com");
+	//sMailer.SetPassword("a123456");
+	//sMailer.SetSenderName("sendName");
+	//sMailer.SetSenderMail("crash10888888@163.com");
+	//sMailer.SetReplyTo("baishikele10888@gmail.com");
+	//sMailer.SetSubject("The message");
+	//sMailer.AddRecipient("crash10888888@163.com");//添加邮件接收者
+	////sMailer.addReceiver("sixbeauty","sanyue9394@126.com");
+
+	////sMailer.AddFilePath("F:\\mailfile\\out.txt");            //添加附件
+	////    sMailer.AddFilePath("F:/mailfile/libcurl.exp");                                                //添加附件
+
+	//sMailer.SetXPriority(XPRIORITY_NORMAL);
+	//sMailer.SetXMailer("The Bat! (v3.02) Professional");
+	//sMailer.AddMsgLine("Hello,");
+	//sMailer.AddMsgLine("");
+	//sMailer.AddMsgLine("...");
+	//sMailer.AddMsgLine("How are you today?");
+	//sMailer.AddMsgLine("");
+	//sMailer.AddMsgLine("Regards");
+	//sMailer.ModMsgLine(5, "regards");
+	//sMailer.DelMsgLine(2);
+	//sMailer.AddMsgLine("User");
+	//sMailer.Send();
+	for (int vip_level = 0; vip_level < 100; vip_level++)
+	{
+		int v = 5 * vip_level*vip_level*vip_level;
+		std::string s = std::to_string(v);
+		int len = s.length() - 2;
+		int m = 1;
+		if (len > 4)
+			len = 4;
+		for (int i = 0; i < len; i++)
+		{
+			m *= 10;
+		}
+		cout << vip_level << "-" << v / m*m << endl;
+	}
 system("pause");
 }
 #else

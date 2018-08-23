@@ -1,5 +1,7 @@
 #include "utils.h"
+#include <winsock2.h>
 #include <Windows.h>
+#include <time.h>
 #pragma comment(lib,"ws2_32")
 
 __int64 CompareFileTime2(FILETIME time1, FILETIME time2)
@@ -111,4 +113,13 @@ bool utils::get_ip(std::vector<std::string>& ips)
 		ips.push_back(inet_ntoa(addr[i]));
 	}
 	return true;
+}
+
+unsigned __int64 utils::get_uid()
+{
+	ULONGLONG t = GetTickCount64();
+	static unsigned __int64 i = 0;
+	InterlockedIncrement(&i);
+	unsigned __int64 ret = t << 32 | i;
+	return ret;
 }

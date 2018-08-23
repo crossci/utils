@@ -1,5 +1,6 @@
 #include "stringutils.h"
 #include <algorithm>
+#include <winsock2.h>
 #include <Windows.h>
 void stringutils::converToUpper(std::string& src)
 {

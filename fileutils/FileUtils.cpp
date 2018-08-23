@@ -1,4 +1,5 @@
 #include "FileUtils.h"
+#include <winsock2.h>
 #include <Windows.h>
 #include <time.h>
 #include <direct.h>
