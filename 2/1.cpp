@@ -33,13 +33,18 @@ public:
 		return true;
 	}
 };
-
+template<class T>
+T test(T t)
+{
+	return t;
+}
 int main(int argc, char* argv[])
 {
-	std::map<int, A> mpa;
-	A a;
-	mpa.insert(make_pair(1, a));
-	mpa.insert(make_pair(1, a));
+	//std::map<int, A> mpa;
+	//A a;
+	//mpa.insert(make_pair(1, a));
+	//mpa.insert(make_pair(1, a));
+	cout << test(1) << endl;;
 
 	system("pause");
 	return 0;
